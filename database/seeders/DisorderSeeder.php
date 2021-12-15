@@ -9,6 +9,6 @@ class DisorderSeeder extends Seeder
 {
     public function run()
     {
-        Disorder::create(['name'=> 'Swapped Electrodes']);
+        Disorder::create(['name' => 'Swapped Electrodes']);
     }
 }

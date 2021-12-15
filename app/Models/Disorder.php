@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Validator;
+use Orchid\Screen\AsSource;
+use Orchid\Filters\Filterable;
+use Orchid\Attachment\Attachable;
 use Illuminate\Database\Eloquent\Model;
 use App\Collections\DisorderCollection;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
@@ -12,6 +15,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 class Disorder extends Model
 {
     use HasRelationships;
+    use AsSource, Filterable, Attachable;
+
     public $timestamps = false;
 
     public function newCollection(array $models = []): DisorderCollection
@@ -23,8 +28,7 @@ class Disorder extends Model
     {
         $rules     = $this->rules()->GetRulesForValidation();
         $validator = Validator::make($parameters, $rules);
-        $passes    = $validator->passes();
-        return $passes;
+        return $validator->passes();
     }
 
     public function rules(): HasMany
@@ -40,6 +44,6 @@ class Disorder extends Model
 
     public function scopeMatching($query, array $parameters)
     {
-        return self::all()->valid($parameters)->toQuery()->with('criteria');
+        return $query->get()->valid($parameters)->toQuery();
     }
 }

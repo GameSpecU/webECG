@@ -26,7 +26,7 @@ class RuleSeeder extends Seeder
                 $criterion = Criterion::where(['name' => $criterionName])->first();
                 $criterion->save();
                 $disorder = Disorder::whereName($disorderName)->first();
-                $rule = Rule::make(['rule' => $ruleName]);
+                $rule     = Rule::make(['rule' => $ruleName]);
                 $rule->criterion()->associate($criterion);
                 $rule->disorder()->associate($disorder);
                 $rule->save();

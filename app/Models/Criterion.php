@@ -2,36 +2,46 @@
 
 namespace App\Models;
 
+use Orchid\Screen\AsSource;
+use Orchid\Filters\Filterable;
+use Orchid\Attachment\Attachable;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Criterion extends Model
 {
+    use AsSource, Filterable, Attachable;
+
     use HasRelationships;
 
     public $timestamps = false;
     protected $withCount = ['disorders'];
-    public function question()
+
+    public function question(): HasOne
     {
         return $this->hasOne(Question::class);
     }
 
-    public function answers()
+    public function answers(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations($this->criterionType(), (new CriterionType())->answers());
     }
 
-    public function criterionType()
+    public function criterionType(): BelongsTo
     {
         return $this->belongsTo(CriterionType::class);
     }
 
-    public function disorders()
+    public function disorders(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations($this->rules(), (new Rule())->disorder());
     }
 
-    public function rules()
+    public function rules(): HasMany
     {
         return $this->hasMany(Rule::class);
     }

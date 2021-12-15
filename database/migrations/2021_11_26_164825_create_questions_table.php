@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateQuestionsTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateQuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('criterion_id')->constrained();
             $table->string('contents');
-//            $table->timestamps();
+            //            $table->timestamps();
         });
     }
 

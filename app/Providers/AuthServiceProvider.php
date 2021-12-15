@@ -7,7 +7,6 @@ use App\Models\Disorder;
 use App\Policies\PersonPolicy;
 use App\Policies\disordersPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -18,8 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-        Person::class   => PersonPolicy::class,
-        Disorder::class => disordersPolicy::class,
+//        Person::class   => PersonPolicy::class,
+//        Disorder::class => disordersPolicy::class,
     ];
 
     /**
@@ -30,7 +29,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
         //
     }
 }

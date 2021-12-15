@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\CriterionType;
-use App\Enums\CriterionTypeEnum;
 use Illuminate\Database\Seeder;
+use App\Enums\CriterionTypeEnum;
 
 class CriterionTypeSeeder extends Seeder
 {

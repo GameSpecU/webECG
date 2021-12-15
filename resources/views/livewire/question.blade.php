@@ -9,7 +9,7 @@
         </div>
         <div class="flex flex-wrap -m-4">
             @foreach($question->answers as $answer)
-            @livewire(\App\Http\Livewire\AnswerCard::class, ['answer' => $answer], key($answer->id) )
+                @livewire($answer->livewireComponent(), ['answer' => $answer], key($answer->id) )
             @endforeach
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\ECG\ECG;
 use App\Models\Answer;
 use Livewire\Component;
 use App\Models\Question;
@@ -9,21 +10,16 @@ use App\ECG\ECGInterface;
 
 class QuestionComponent extends Component
 {
-    public Question        $question;
-    public array           $answers;
-    protected              $listeners = [
+    public Question $question;
+//    public array $answers;
+    protected $listeners = [
         'sendAnswer',
     ];
-    protected ECGInterface $ECG;
-public function __construct($id = null)
-{
-    parent::__construct($id);
-}
+    public ECG $ECG;
 
     public function sendAnswer(Answer $answer)
     {
-        $this->answers = array_merge($this->answers, [$this->question->criterion->name => $answer->contents]);
-        $this->ECG->setAnswers($this->answers);
+        $this->ECG->addAnswer($this->question, $answer);
         $this->fetchNewQuestion();
     }
 
@@ -32,14 +28,11 @@ public function __construct($id = null)
         $this->question = $this->ECG->nextQuestion();
     }
 
-    public function boot(ECGInterface $ECG)
+
+
+    public function mount(ECG $ECG)
     {
         $this->ECG = $ECG;
-    }
-
-    public function mount()
-    {
-        $this->answers = [];
 
         $this->fetchNewQuestion();
     }

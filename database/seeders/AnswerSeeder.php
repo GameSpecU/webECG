@@ -14,7 +14,7 @@ class AnswerSeeder extends Seeder
     {
         $criterionType_answers = [
             CriterionTypeEnum::DIRECTION->value => ['positive', 'negative', 'biphase',],
-            CriterionTypeEnum::BOOLEAN->value => ['true', 'false']
+            CriterionTypeEnum::BOOLEAN->value   => ['true', 'false']
         ];
         foreach ($criterionType_answers as $criterionType => $answers) {
             foreach ($answers as $answer) {

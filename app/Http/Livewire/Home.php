@@ -2,9 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\ECG\ECG;
 use Livewire\Component;
-use App\ECG\ECGInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
