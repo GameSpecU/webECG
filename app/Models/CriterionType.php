@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class CriterionType extends Model
 {
     use AsSource, Filterable, Attachable;
+    protected array $allowedFilters = ['id'];
 
     public $timestamps = false;
 

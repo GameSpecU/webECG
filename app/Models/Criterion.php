@@ -20,6 +20,7 @@ class Criterion extends Model
 
     public $timestamps = false;
     protected $withCount = ['disorders'];
+    protected array $allowedFilters = ['id'];
 
     public function question(): HasOne
     {
@@ -44,5 +45,10 @@ class Criterion extends Model
     public function rules(): HasMany
     {
         return $this->hasMany(Rule::class);
+    }
+
+    public function scopeWithoutQuestion($query)
+    {
+        return $query->whereDoesntHave('question');
     }
 }

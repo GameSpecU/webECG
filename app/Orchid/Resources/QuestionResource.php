@@ -27,7 +27,7 @@ class QuestionResource extends Resource
     {
         return [
             Input::make('contents'),
-            Relation::make('criterion_id')->fromModel(Criterion::class, 'name'),
+            Relation::make('criterion_id')->fromModel(Criterion::class, 'name')->applyScope('withoutQuestion'),
 
         ];
     }

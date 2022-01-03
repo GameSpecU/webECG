@@ -2,8 +2,12 @@
 
 namespace App\Orchid\Resources;
 
-use Orchid\Crud\Resource;
 use Orchid\Screen\TD;
+use App\Models\Answer;
+use Orchid\Crud\Resource;
+use App\Models\CriterionType;
+use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Relation;
 
 class AnswerResource extends Resource
 {
@@ -12,7 +16,7 @@ class AnswerResource extends Resource
      *
      * @var string
      */
-    public static $model = \App\Models\Answer::class;
+    public static $model = Answer::class;
 
     /**
      * Get the fields displayed by the resource.
@@ -21,7 +25,11 @@ class AnswerResource extends Resource
      */
     public function fields(): array
     {
-        return [];
+        return [
+            Input::make('contents'),
+            Relation::make('criterion_type_id')->fromModel(CriterionType::class, 'type'),
+
+        ];
     }
 
     /**
@@ -33,17 +41,14 @@ class AnswerResource extends Resource
     {
         return [
             TD::make('id'),
-
-            TD::make('created_at', 'Date of creation')
-                ->render(function ($model) {
-                    return $model->created_at->toDateTimeString();
-                }),
-
-            TD::make('updated_at', 'Update date')
-                ->render(function ($model) {
-                    return $model->updated_at->toDateTimeString();
-                }),
+            TD::make('contents'),
+            TD::make('criterionType.type', 'Criterion Type')
         ];
+    }
+
+    public function with(): array
+    {
+        return ['criterionType',];
     }
 
     /**

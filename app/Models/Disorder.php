@@ -18,6 +18,7 @@ class Disorder extends Model
     use AsSource, Filterable, Attachable;
 
     public $timestamps = false;
+    protected array $allowedFilters = ['id'];
 
     public function newCollection(array $models = []): DisorderCollection
     {

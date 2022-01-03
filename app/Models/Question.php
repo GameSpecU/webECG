@@ -14,6 +14,7 @@ class Question extends Model
     use HasRelationships;
 
     public $timestamps = false;
+    protected array $allowedFilters = ['id'];
 
     public function answers()
     {

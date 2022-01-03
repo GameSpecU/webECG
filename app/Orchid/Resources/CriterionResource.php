@@ -7,7 +7,9 @@ use Orchid\Crud\Resource;
 use App\Models\Criterion;
 use App\Models\CriterionType;
 use Orchid\Screen\Fields\Input;
+use Illuminate\Validation\Rule;
 use Orchid\Screen\Fields\Relation;
+use Illuminate\Database\Eloquent\Model;
 
 class CriterionResource extends Resource
 {
@@ -26,7 +28,7 @@ class CriterionResource extends Resource
     public function fields(): array
     {
         return [
-            Input::make('type'),
+            Input::make('name'),
             Relation::make('criterion_type_id')->fromModel(CriterionType::class, 'type'),
         ];
     }
@@ -68,5 +70,12 @@ class CriterionResource extends Resource
     public function filters(): array
     {
         return [];
+    }
+    public function rules(Model $model): array
+    {
+        return ['name' => [
+            'required',
+            Rule::unique(self::$model, 'name')->ignore($model),
+        ],];
     }
 }

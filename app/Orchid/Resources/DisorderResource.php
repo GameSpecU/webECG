@@ -6,8 +6,8 @@ use Orchid\Screen\TD;
 use Orchid\Screen\Cell;
 use App\Models\Disorder;
 use Orchid\Crud\Resource;
-use Orchid\Screen\Action;
 use Orchid\Screen\Fields\Input;
+use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
 
 class DisorderResource extends Resource
@@ -18,7 +18,6 @@ class DisorderResource extends Resource
      * @var string
      */
     public static $model = Disorder::class;
-
 
 
     /**
@@ -43,7 +42,6 @@ class DisorderResource extends Resource
         return [
             TD::make('id'),
             TD::make('name'),
-
         ];
     }
 
@@ -75,5 +73,12 @@ class DisorderResource extends Resource
     public function filters(): array
     {
         return [];
+    }
+    public function rules(Model $model): array
+    {
+        return ['name' => [
+            'required',
+            Rule::unique(self::$model, 'slug')->ignore($model),
+        ],];
     }
 }

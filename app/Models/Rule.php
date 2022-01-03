@@ -15,6 +15,8 @@ class Rule extends Model
 
     public $timestamps = false;
 
+    protected array $allowedFilters = ['id'];
+
     public function criterion(): BelongsTo
     {
         return $this->belongsTo(Criterion::class);
@@ -29,7 +31,7 @@ class Rule extends Model
     public function scopeGetRulesForValidation(Builder $builder): array
     {
         return $builder->with('criterion')
-                       ->get()
-                       ->mapWithKeys(fn(Rule $rule) => [$rule->criterion->name => $rule->rule])->toArray();
+            ->get()
+            ->mapWithKeys(fn(Rule $rule) => [$rule->criterion->name => $rule->rule])->toArray();
     }
 }
