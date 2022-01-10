@@ -27,11 +27,15 @@ class Rule extends Model
         return $this->belongsTo(Disorder::class);
     }
 
-
     public function scopeGetRulesForValidation(Builder $builder): array
     {
         return $builder->with('criterion')
             ->get()
             ->mapWithKeys(fn(Rule $rule) => [$rule->criterion->name => $rule->rule])->toArray();
+    }
+
+    public function passes($data): bool
+    {
+        return \Validator::make($data, [$this->criterion->name => $this->rule])->passes();
     }
 }

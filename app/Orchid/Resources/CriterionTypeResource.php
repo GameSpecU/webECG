@@ -68,7 +68,7 @@ class CriterionTypeResource extends Resource
     {
         return ['type' => [
             'required',
-            Rule::unique(self::$model, 'slug')->ignore($model),
+            Rule::unique(self::$model, 'type')->ignore($model),
         ],];
     }
 }

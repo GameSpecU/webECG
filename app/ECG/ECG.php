@@ -2,9 +2,10 @@
 
 namespace App\ECG;
 
-use App\Models\Answer;
+use App\Models\Rule;
 use App\Models\Question;
 use App\Models\Disorder;
+use App\Collections\DisorderCollection;
 
 class ECG implements ECGInterface
 {
@@ -15,14 +16,14 @@ class ECG implements ECGInterface
         $this->answers = $answers;
     }
 
-    public function addAnswer(Question $question, Answer $answer)
-    {
-        $this->answers = array_merge($this->answers, [$question->criterion->name => $answer->contents]);
-    }
-
     public static function fromLivewire($value): static
     {
         return new static($value);
+    }
+
+    public function addAnswer($criterionName, $answerContents)
+    {
+        $this->answers = array_merge($this->answers, [$criterionName => $answerContents]);
     }
 
     public function nextQuestion(): Question
@@ -40,5 +41,22 @@ class ECG implements ECGInterface
     public function toLivewire(): array
     {
         return $this->answers;
+    }
+
+    public function getDisordersWithValidationInfo(): DisorderCollection
+    {
+        $disorders = Disorder::with(['rules', 'rules.criterion'])->get();
+        $disorders->map(function (Disorder $disorder) {
+
+            $count = 0;
+            $disorder->rules->map(function (Rule $rule) use (&$count) {
+                $rule->valid = $rule->passes($this->answers);
+                if ($rule->valid)
+                    $count++;
+                return $rule;
+            });
+            $disorder->rules_passes = $count;
+        });
+        return $disorders;
     }
 }

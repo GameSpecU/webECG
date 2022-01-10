@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-
+const window = global.window;
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

@@ -22,7 +22,6 @@ class Answer extends Model
 }
     public function livewireComponent(): string
     {
-        $type = 'button';
-        return '\\App\\Http\\Livewire\\'.Str::studly($type).'AnswerCard';
+        return '\\App\\Http\\Livewire\\Answers\\'.Str::studly($this->type).'AnswerCard';
     }
 }

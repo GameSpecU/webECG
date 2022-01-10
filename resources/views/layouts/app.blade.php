@@ -13,6 +13,9 @@
     <link href="/css/app.css" rel="stylesheet">
     @livewireStyles
     @livewireScripts
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+
     <script src="/js/app.js"></script>
 </head>
 
@@ -26,5 +29,7 @@
     </section>
 
 </div>
+
+
 </body>
 </html>

@@ -26,8 +26,9 @@ class AnswerResource extends Resource
     public function fields(): array
     {
         return [
-            Input::make('contents'),
-            Relation::make('criterion_type_id')->fromModel(CriterionType::class, 'type'),
+            Input::make('contents')->title('Zawartość'),
+            Input::make('type')->title('Typ'),
+            Relation::make('criterion_type_id')->fromModel(CriterionType::class, 'type')->title('CriterionType'),
 
         ];
     }
@@ -42,6 +43,7 @@ class AnswerResource extends Resource
         return [
             TD::make('id'),
             TD::make('contents'),
+            TD::make('type'),
             TD::make('criterionType.type', 'Criterion Type')
         ];
     }

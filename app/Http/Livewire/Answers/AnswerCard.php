@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Answers;
 
 use App\Models\Answer;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
+use function view;
 
-abstract class AnswerCard extends Component
+abstract class AnswerCard extends Component implements Answerable
 {
     public Answer $answer;
 
@@ -19,7 +20,8 @@ abstract class AnswerCard extends Component
 
     public function chooseAnswer()
     {
-        $this->emit('sendAnswer', ['answer' => $this->answer]);
+        $value = $this->prepareAnswer();
+        $this->emit('sendAnswer', $value);
     }
 
     public function render(): Factory|View|Application

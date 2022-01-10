@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Home;
+use App\Http\Livewire\ECGComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Home::class);
+Route::get('/', ECGComponent::class);

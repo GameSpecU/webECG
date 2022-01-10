@@ -17,6 +17,8 @@ class Disorder extends Model
     use HasRelationships;
     use AsSource, Filterable, Attachable;
 
+    protected $appends = ['rules_count',
+    ];
     public $timestamps = false;
     protected array $allowedFilters = ['id'];
 
@@ -29,7 +31,9 @@ class Disorder extends Model
     {
         $rules     = $this->rules()->GetRulesForValidation();
         $validator = Validator::make($parameters, $rules);
-        return $validator->passes();
+
+        $passes = $validator->passes();
+        return $passes;
     }
 
     public function rules(): HasMany
@@ -47,4 +51,10 @@ class Disorder extends Model
     {
         return $query->get()->valid($parameters)->toQuery();
     }
+
+    public function getRulesCountAttribute()
+    {
+        return $this->rules()->count();
+    }
+
 }

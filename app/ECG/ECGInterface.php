@@ -13,5 +13,5 @@ interface ECGInterface extends Wireable
     public function nextQuestion();// : Question;
 
 
-    public function addAnswer(Question $question, Answer $answer);
+    public function addAnswer($criterionName, $answerContents);
 }
